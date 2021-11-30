@@ -1,11 +1,14 @@
 package main;
 
+import actions.ActionsManager;
 import checker.Checkstyle;
 import checker.Checker;
 import common.Constants;
+import database.Database;
 import fileio.Input;
 import fileio.InputLoader;
 import fileio.Writer;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
 import java.io.File;
@@ -71,6 +74,15 @@ public final class Main {
         JSONArray arrayResult = new JSONArray();
 
         //TODO add here the entry point to your implementation
+        Database.initDatabase(input);
+        ActionsManager manager = new ActionsManager(input.getCommands(),
+                fileWriter);
+
+        JSONObject result;
+
+        while ((result = manager.executeNextAction()) != null) {
+            arrayResult.add(result);
+        }
 
         fileWriter.closeJSON(arrayResult);
     }
