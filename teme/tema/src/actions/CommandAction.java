@@ -30,7 +30,7 @@ public final class CommandAction {
     public static String favoriteCommand(final ActionInputData action) {
         String username = action.getUsername();
         String title = action.getTitle();
-        User user = Database.getUserMap().get(username);
+        User user = Database.findUser(username);
 
         if (user.getFavoriteMovies().contains(title)) {
             return "error -> " + title + " is already in favourite list";
@@ -47,13 +47,13 @@ public final class CommandAction {
     public static String viewCommand(final ActionInputData action) {
         String username = action.getUsername();
         String title = action.getTitle();
-        User user = Database.getUserMap().get(username);
+        User user = Database.findUser(username);
 
         if (user.getHistory().containsKey(title)) {
             int views = user.getHistory().get(title);
-            int newviews = views + 1;
-            user.getHistory().put(title, newviews);
-            return "success -> " + title + " was viewed with total views of " + newviews;
+            int newViews = views + 1;
+            user.getHistory().put(title, newViews);
+            return "success -> " + title + " was viewed with total views of " + newViews;
         } else {
             user.getHistory().put(title, 1);
             return "success -> " + title + " was viewed with total views of 1";
@@ -66,9 +66,9 @@ public final class CommandAction {
         double grade = action.getGrade();
         int currSeason = action.getSeasonNumber();
 
-        User user = Database.getUserMap().get(username);
-        Movie movie = Database.getMovieMap().get(title);
-        Serial serial = Database.getSerialMap().get(title);
+        User user = Database.findUser(username);
+        Movie movie = Database.findMovie(title);
+        Serial serial = Database.findSerial(title);
 
         String key;
 

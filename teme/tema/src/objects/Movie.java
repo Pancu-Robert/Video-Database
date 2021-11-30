@@ -15,7 +15,25 @@ public class Movie extends Show {
         this.ratings = new ArrayList<>();
     }
 
-    public ArrayList<Double> getRatings() {
+    public final ArrayList<Double> getRatings() {
         return ratings;
+    }
+
+    @Override
+    public final double getAverageRating() {
+        if (!hasRatings()) {
+            return 0.0;
+        }
+        double sum = this.getRatings().stream().mapToDouble(n -> n).sum();
+        return sum / this.getRatings().size();
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public final boolean hasRatings() {
+        return !this.getRatings().isEmpty();
     }
 }

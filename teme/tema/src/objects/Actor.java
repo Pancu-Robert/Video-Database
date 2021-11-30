@@ -34,4 +34,9 @@ public final class Actor {
     public HashMap<ActorsAwards, Integer> getAwards() {
         return awards;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

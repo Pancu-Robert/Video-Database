@@ -36,67 +36,21 @@ public final class QueryAction {
     }
 
     public static String actorsQuery(final ActionInputData action) {
-        if (action.getCriteria().equals("average")) {
-            return averageActorsQuery(action);
-        }
-        if (action.getCriteria().equals("awards")) {
-            return awardsActorsQuery(action);
-        }
-        if (action.getCriteria().equals("filter_description")) {
-            return filterDescriptionActorsQuery(action);
-        }
+
         return null;
     }
 
     public static String moviesQuery(final ActionInputData action) {
-        if (action.getCriteria().equals("rating")) {
-            return ratingMoviesQuery(action);
-        }
-        if (action.getCriteria().equals("favorite")) {
-            return favoriteMoviesQuery(action);
-        }
-        if (action.getCriteria().equals("longest")) {
-            return longestMoviesQuery(action);
-        }
-        if (action.getCriteria().equals("most_viewed")) {
-            return mostViewedMoviesQuery(action);
-        }
+
         return null;
     }
 
     public static String showsQuery(final ActionInputData action) {
-        if (action.getCriteria().equals("ratings")) {
-            return ratingShowsQuery(action);
-        }
-        if (action.getCriteria().equals("favorite")) {
-            return favoriteShowsQuery(action);
-        }
-        if (action.getCriteria().equals("longest")) {
-            return longestShowsQuery(action);
-        }
-        if (action.getCriteria().equals("most_viewed")) {
-            return mostViewedShowsQuery(action);
-        }
+
         return null;
     }
 
     public static String usersQuery(final ActionInputData action) {
-        int number = action.getNumber();
-        String sortType = action.getSortType();
-        String criteria = action.getCriteria();
-        HashMap<String, User> userMap = Database.getUserMap();
-
-        if (number > userMap.size()) {
-            number = userMap.size();
-        }
-
-        ArrayList<Integer> ratings = new ArrayList<>();
-
-        for (Map.Entry<String, User> entry : userMap.entrySet()) {
-            User user = userMap.get(entry.getKey());
-            int ratingNumber = user.getRatings().size();
-            ratings.add(ratingNumber);
-        }
 
         return null;
     }

@@ -25,4 +25,30 @@ public final class Serial extends Show {
     public ArrayList<Season> getSeasons() {
         return seasons;
     }
+
+    @Override
+    public double getAverageRating() {
+        if (!hasRatings()) {
+            return 0;
+        }
+        double avg = 0;
+        for (Season season : this.seasons) {
+            double seasonAvg = 0;
+            if (!season.getRatings().isEmpty()) {
+                seasonAvg += season.getRatings().stream().mapToDouble(n -> n).sum();
+                avg += seasonAvg / season.getRatings().size();
+            }
+        }
+        return avg / getNumberOfSeasons();
+    }
+
+    @Override
+    public boolean hasRatings() {
+        for (Season season : seasons) {
+            if (season.getRatings().size() != 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

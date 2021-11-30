@@ -39,4 +39,9 @@ public final class User {
     public HashMap<String, Double> getRatings() {
         return ratings;
     }
+
+    @Override
+    public String toString() {
+        return username;
+    }
 }

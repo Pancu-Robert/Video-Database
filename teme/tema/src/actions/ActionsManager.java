@@ -26,7 +26,7 @@ public final class ActionsManager {
             String message = switch (action.getActionType()) {
                 case "command" -> CommandAction.command(action);
 
-                case "query" -> QueryAction.query(action);
+                // case "query" -> QueryAction.query(action);
 
                 case "recommendation" -> RecommendationAction.recommendation(action);
 
