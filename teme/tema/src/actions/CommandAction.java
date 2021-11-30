@@ -83,7 +83,7 @@ public final class CommandAction {
         }
 
         // Daca utilizatorul a dat deja rating la un film sau un sezon
-        if (user.getRatings().containsKey(title)) {
+        if (user.getRatings().containsKey(key)) {
             return "error -> " + title + " has been already rated";
         }
 

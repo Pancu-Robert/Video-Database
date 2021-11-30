@@ -1,16 +1,13 @@
 package actions;
 
-import com.sun.source.doctree.SeeTree;
 import database.Database;
 import fileio.ActionInputData;
-import objects.Movie;
 import objects.Show;
 import objects.User;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Map;
-import java.util.Set;
+import java.util.HashMap;
 
 public final class RecommendationAction {
 
@@ -55,7 +52,7 @@ public final class RecommendationAction {
 
         showList.sort(new Comparator<Show>() {
             @Override
-            public int compare(Show o1, Show o2) {
+            public int compare(final Show o1, final Show o2) {
                 return Double.compare(o2.getAverageRating(), o1.getAverageRating());
             }
         });
@@ -69,7 +66,44 @@ public final class RecommendationAction {
     }
 
     public static String popularRecommendation(final ActionInputData action) {
-        return null;
+        User user = Database.findUser(action.getUsername());
+        if (user.getSubscriptionType().equals("BASIC")) {
+            return "PopularRecommendation cannot be applied!";
+        }
+
+        HashMap<String, Integer> genreMap = new HashMap<>();
+        ArrayList<String> genreList = new ArrayList<>();
+
+        for (Show show : Database.getShowList()) {
+            int viewCount = show.viewCount();
+            for (String genre : show.getGenres()) {
+                if (!genreList.contains(genre)) {
+                    genreList.add(genre);
+                    genreMap.put(genre, viewCount);
+                } else {
+                    int oldViews = genreMap.get(genre);
+                    genreMap.put(genre, oldViews + viewCount);
+                }
+            }
+        }
+
+        genreList.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return genreMap.get(o2) - genreMap.get(o1);
+            }
+        });
+
+        for (String genre : genreList) {
+            for (Show show : Database.getShowList()) {
+                if (!user.getHistory().containsKey(show.getTitle())
+                        && show.getGenres().contains(genre)) {
+                    return "PopularRecommendation result: " + show;
+                }
+            }
+        }
+
+        return "PopularRecommendation cannot be applied!";
     }
 
     public static String searchRecommendation(final ActionInputData action) {
@@ -82,6 +116,10 @@ public final class RecommendationAction {
 
         showList.removeIf(show -> !show.getGenres().contains(action.getGenre()));
         showList.removeIf(show -> user.getHistory().containsKey(show.getTitle()));
+
+        if (showList.isEmpty()) {
+            return "SearchRecommendation cannot be applied!";
+        }
 
         showList.sort(new Comparator<Show>() {
             @Override
@@ -112,7 +150,7 @@ public final class RecommendationAction {
 
         showList.sort(new Comparator<Show>() {
             @Override
-            public int compare(Show o1, Show o2) {
+            public int compare(final Show o1, final Show o2) {
                 return o2.favoriteCount() - o1.favoriteCount();
             }
         });

@@ -1,6 +1,7 @@
 package objects;
 
 import actor.ActorsAwards;
+import database.Database;
 import fileio.ActorInputData;
 
 import java.util.ArrayList;
@@ -39,4 +40,31 @@ public final class Actor {
     public String toString() {
         return name;
     }
+
+    public boolean hasRatings() {
+        for (String title : getFilmography()) {
+            Show show = Database.findShow(title);
+            if (show != null && show.hasRatings()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public double calculateAverage() {
+        if (!hasRatings()) {
+            return 0;
+        }
+        double avg = 0;
+        int count = 0;
+        for (String title : getFilmography()) {
+            Show show = Database.findShow(title);
+            if (show != null && show.hasRatings()) {
+                avg += show.getAverageRating();
+                count++;
+            }
+        }
+        return avg / count;
+    }
+
 }

@@ -65,7 +65,7 @@ public final class Database {
         return showList;
     }
 
-    public static Actor findActor(String name) {
+    public static Actor findActor(final String name) {
         for (Actor actor : getActorList()) {
             if (actor.getName().equals(name)) {
                 return actor;
@@ -74,7 +74,7 @@ public final class Database {
         return null;
     }
 
-    public static Movie findMovie(String name) {
+    public static Movie findMovie(final String name) {
         for (Movie movie : getMovieList()) {
             if (movie.getTitle().equals(name)) {
                 return movie;
@@ -83,7 +83,7 @@ public final class Database {
         return null;
     }
 
-    public static Serial findSerial(String name) {
+    public static Serial findSerial(final String name) {
         for (Serial serial : getSerialList()) {
             if (serial.getTitle().equals(name)) {
                 return serial;
@@ -92,7 +92,7 @@ public final class Database {
         return null;
     }
 
-    public static User findUser(String name) {
+    public static User findUser(final String name) {
         for (User user : getUserList()) {
             if (user.getUsername().equals(name)) {
                 return user;
@@ -101,7 +101,7 @@ public final class Database {
         return null;
     }
 
-    public static Show findShow(String name) {
+    public static Show findShow(final String name) {
         for (Show show : getShowList()) {
             if (show.getTitle().equals(name)) {
                 return show;
@@ -109,5 +109,4 @@ public final class Database {
         }
         return null;
     }
-
 }

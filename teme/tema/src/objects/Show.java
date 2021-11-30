@@ -58,6 +58,8 @@ public abstract class Show {
         return count;
     }
 
+    public abstract int getDuration();
+
     @Override
     public final String toString() {
         return title;

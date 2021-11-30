@@ -4,8 +4,9 @@ import fileio.MovieInputData;
 
 import java.util.ArrayList;
 
-public class Movie extends Show {
+public final class Movie extends Show {
     private final ArrayList<Double> ratings;
+    private final int duration;
 
     public Movie(final MovieInputData movieInputData) {
         super(movieInputData.getTitle(),
@@ -13,14 +14,20 @@ public class Movie extends Show {
                 movieInputData.getCast(),
                 movieInputData.getGenres());
         this.ratings = new ArrayList<>();
+        this.duration = movieInputData.getDuration();
     }
 
-    public final ArrayList<Double> getRatings() {
+    public ArrayList<Double> getRatings() {
         return ratings;
     }
 
     @Override
-    public final double getAverageRating() {
+    public int getDuration() {
+        return duration;
+    }
+
+    @Override
+    public double getAverageRating() {
         if (!hasRatings()) {
             return 0.0;
         }
@@ -33,7 +40,7 @@ public class Movie extends Show {
      * @return
      */
     @Override
-    public final boolean hasRatings() {
+    public boolean hasRatings() {
         return !this.getRatings().isEmpty();
     }
 }

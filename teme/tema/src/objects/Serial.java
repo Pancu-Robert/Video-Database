@@ -51,4 +51,9 @@ public final class Serial extends Show {
         }
         return false;
     }
+
+    @Override
+    public int getDuration() {
+        return this.getSeasons().stream().mapToInt(Season::getDuration).sum();
+    }
 }
