@@ -34,10 +34,24 @@ public abstract class Show {
         return genres;
     }
 
+    /**
+     * am implementat metoda abstracta, pentru calcularea mediei ratingurilor, pentru a o
+     * putea suprascrie in clasele derivate.
+     * @return
+     */
     public abstract double getAverageRating();
 
+    /**
+     * am implementat metoda abstracta, pentru vedea, pentru a o
+     * putea suprascrie in clasele derivate.
+     * @return
+     */
     public abstract boolean hasRatings();
 
+    /**
+     * Contorizez de cate ori apare numele unui show in lista de favorite a utilizatorilor
+     * @return nr de favorite
+     */
     public final int favoriteCount() {
         int count = 0;
 
@@ -48,6 +62,11 @@ public abstract class Show {
         return count;
     }
 
+    /**
+     * Contorizez de cate ori este vazut un show de toti utilizatorii.
+     * (Implementare este sugerata de IDE)
+     * @return numarul de vizualizari
+     */
     public final int viewCount() {
         int count = 0;
 
@@ -58,6 +77,11 @@ public abstract class Show {
         return count;
     }
 
+    /**
+     * metoda abstracta de calculare a duratei unui film/serial pe care am implementat-o in
+     * clasele derivate acestei clase.
+     * @return durata
+     */
     public abstract int getDuration();
 
     @Override

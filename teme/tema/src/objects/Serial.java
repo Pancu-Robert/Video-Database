@@ -42,6 +42,10 @@ public final class Serial extends Show {
         return avg / getNumberOfSeasons();
     }
 
+    /**
+     * Caut daca macar un sezon are rating.
+     * @return true daca serialul are mcar un sezon cu rating si false in caz contrar.
+     */
     @Override
     public boolean hasRatings() {
         for (Season season : seasons) {
@@ -52,6 +56,11 @@ public final class Serial extends Show {
         return false;
     }
 
+    /**
+     * calculeaza durata unui sezon.
+     * (Sintaxa folosita este sugerata de IDE).
+     * @return durata
+     */
     @Override
     public int getDuration() {
         return this.getSeasons().stream().mapToInt(Season::getDuration).sum();

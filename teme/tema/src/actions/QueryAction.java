@@ -19,6 +19,12 @@ public final class QueryAction {
     private QueryAction() {
     }
 
+    /**
+     * in functie de obiectele pe care se realizeaza query-urile se apeleaza
+     * metodele specifice.
+     * @param action
+     * @return mesajul de succes sau de eroare.
+     */
     public static String query(final ActionInputData action) {
         if (action.getObjectType().equals("actors")) {
             return actorsQuery(action);
@@ -33,6 +39,13 @@ public final class QueryAction {
         return null;
     }
 
+    /**
+     * in functie de criteriu elimin rezultatele care nu sunt bune, iar rezultatele
+     * ramase le sortez cu metoda sort si creez o interfata noua pentru comparare.
+     * La final afisez rezultatele dorite.
+     * @param action
+     * @return mesajul de succes (rezultatul Query-ului)
+     */
     public static String actorsQuery(final ActionInputData action) {
         ArrayList<Actor> actorList = Database.getActorList();
 
@@ -101,13 +114,22 @@ public final class QueryAction {
         return "Query result: " + actorList;
     }
 
+    /**
+     * La fel ca si la Query-ul trecut, aplic filtrele necesare si elimin tot
+     * ce nu este bun, iar dupa, fac o selectie dupa criteriu, urmand ca la final
+     * sa sortez Lista ramasa cu creearea unei noi interfete de comparare.
+     * @param action
+     * @return mesajul de succes (rezultatul Query-ului)
+     */
     public static String videosQuery(final ActionInputData action) {
 
+        // Creez un ArrayList de Show in care, in functie de obiect il initializez.
         ArrayList<Show> showList = new ArrayList<>(action.getObjectType().equals("movies")
                 ? Database.getMovieList() : Database.getSerialList());
         String year = action.getFilters().get(Constants.YEAR_INDEX).get(0);
         String genre = action.getFilters().get(Constants.GENRE_INDEX).get(0);
 
+        // Elimin filmele/serialele aplicand filtrele.
         showList.removeIf(show -> year != null && show.getYear() != Integer.parseInt(year));
         showList.removeIf(show -> genre != null && !show.getGenres().contains(genre));
 
@@ -156,6 +178,13 @@ public final class QueryAction {
         return "Query result: " + showList;
     }
 
+    /**
+     * Elimin utilizatorii care nu au dat rating, dupa care sortez utilizatorii
+     * ramasi cu o noua interfata de comparare, in functie de rating, apoi dupa
+     * ordinea alfabetica.
+     * @param action
+     * @return mesajul de succes (rezultatul Query-ului)
+     */
     public static String usersQuery(final ActionInputData action) {
         ArrayList<User> userList = Database.getUserList();
 

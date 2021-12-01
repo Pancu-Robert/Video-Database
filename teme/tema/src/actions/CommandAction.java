@@ -12,6 +12,11 @@ public final class CommandAction {
     private CommandAction() {
     }
 
+    /**
+     * in functie de tipul comenzii se apeleaza metodele specifice
+     * @param action
+     * @return mesajul de succes sau de eroare
+     */
     public static String command(final ActionInputData action) {
         if (action.getType().equals("favorite")) {
             return favoriteCommand(action);
@@ -27,6 +32,13 @@ public final class CommandAction {
         return null;
     }
 
+    /**
+     * Caut in lista de favorite a userului daca filmul/serialul este deja la
+     * favorite, iar in caz contrar cauta in istoric pentru a avea posibilitatea
+     * de al adauga.
+     * @param action
+     * @return mesajul de succes sau de eroare.
+     */
     public static String favoriteCommand(final ActionInputData action) {
         String username = action.getUsername();
         String title = action.getTitle();
@@ -44,6 +56,12 @@ public final class CommandAction {
         }
     }
 
+    /**
+     * Caut in instoric, iar daca filmul/serialul a mai fost vazut incrementez numarul
+     * de vizionari, iar daca nu, il adauga in istoric cu 1 vizionare.
+     * @param action
+     * @return mesajul de succes sau de eroare
+     */
     public static String viewCommand(final ActionInputData action) {
         String username = action.getUsername();
         String title = action.getTitle();
@@ -60,6 +78,13 @@ public final class CommandAction {
         }
     }
 
+    /**
+     * Pentru a face diferenta intre un serial si un film, serialele le adaug in
+     * istoric de forma [numeSerial##numarSezon].
+     * Pentru a da rating, caut in istoric daca a fost vizionat si aplic rating-ul
+     * @param action
+     * @return mesajul de succes sau de eroare
+     */
     public static String ratingCommand(final ActionInputData action) {
         String username = action.getUsername();
         String title = action.getTitle();

@@ -36,8 +36,8 @@ public final class Movie extends Show {
     }
 
     /**
-     *
-     * @return
+     * Caut daca filmul are rating-uri date de utilizatori.
+     * @return returneaza true daca filmul are rating-uri si false in caz contrar.
      */
     @Override
     public boolean hasRatings() {

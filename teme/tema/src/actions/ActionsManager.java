@@ -18,6 +18,11 @@ public final class ActionsManager {
         this.writer = writer;
     }
 
+    /**
+     * In functie de
+     * @return un JSONobject pentru a fi adaugat in main in lista de rezultate
+     * @throws IOException
+     */
     public JSONObject executeNextAction() throws IOException {
         if (actionNo == actions.size()) {
             return null;

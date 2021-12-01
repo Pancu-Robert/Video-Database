@@ -13,6 +13,12 @@ public final class RecommendationAction {
 
     private RecommendationAction() {
     }
+
+    /**
+     * in functie de tipul de recomandare se apeleaza functiile specifice
+     * @param action
+     * @return mesajul care spune daca recomandarea poate fi aplicata san nu.
+     */
     public static String recommendation(final ActionInputData action) {
         if (action.getType().equals("standard")) {
             return standardRecommendation(action);
@@ -32,6 +38,13 @@ public final class RecommendationAction {
         return null;
     }
 
+    /**
+     * caut in baza de date de filme si seriale, iar dupa verificat la care filme
+     * sau seriale nu s-a uitat utilizatorul. Daca s-a uitat la toate filmele sau
+     * serialele din baza de date atunci se afiseaza mesajul de eroare.
+     * @param action
+     * @return mesajul care spune daca recomandarea poate fi aplicata san nu..
+     */
     public static String standardRecommendation(final ActionInputData action) {
         String username = action.getUsername();
         User user = Database.findUser(username);
@@ -44,6 +57,13 @@ public final class RecommendationAction {
         return "StandardRecommendation cannot be applied!";
     }
 
+    /**
+     * Intr-un ArrayList pun toate filmele si serialele (in ordinea aceasta)
+     * dupa care le sortez descrescator in functie de rating si in final
+     * daca nu exista videoul in istoricul utilizatorului afisez videoul.
+     * @param action
+     * @return mesajul care spune daca recomandarea poate fi aplicata san nu.
+     */
     public static String bestUnseenRecommendation(final ActionInputData action) {
         String username = action.getUsername();
         User user = Database.findUser(username);
@@ -65,6 +85,15 @@ public final class RecommendationAction {
         return "BestRatedUnseenRecommendation cannot be applied!";
     }
 
+    /**
+     * Am verificat daca abonamentul utilizatorului este de tip Basic si am afisat
+     * mesaj de eroare pentru ca aceasta recomandare nu poate fi aplicata unui utilizator
+     * care nu are cont premium. Stochez nr de vizualizari de la fiecare
+     * gen in parte, dupa care sortez descrescator lista de genuri pentru a obtine
+     * cel mai poluar gen si dupa afisez.
+     * @param action
+     * @return mesajul care spune daca recomandarea poate fi aplicata san nu.
+     */
     public static String popularRecommendation(final ActionInputData action) {
         User user = Database.findUser(action.getUsername());
         if (user.getSubscriptionType().equals("BASIC")) {
@@ -89,7 +118,7 @@ public final class RecommendationAction {
 
         genreList.sort(new Comparator<String>() {
             @Override
-            public int compare(String o1, String o2) {
+            public int compare(final String o1, final String o2) {
                 return genreMap.get(o2) - genreMap.get(o1);
             }
         });
@@ -106,6 +135,16 @@ public final class RecommendationAction {
         return "PopularRecommendation cannot be applied!";
     }
 
+    /**
+     * Am verificat daca abonamentul utilizatorului este de tip Basic si am afisat
+     * mesaj de eroare pentru ca aceasta recomandare nu poate fi aplicata unui utilizator
+     * care nu are cont premium. Am pus intr-un ArrayList toate filmele si serialele
+     * (in ordinea aceasta) dupa care am eliminat videoclipurile care erau deja vazute
+     * si videoclipurile care nu contineau filtrele date. Dupa care am sortat show-urile
+     * ramase si le-am afisat.
+     * @param action
+     * @return mesajul care spune daca recomandarea poate fi aplicata san nu.
+     */
     public static String searchRecommendation(final ActionInputData action) {
         User user = Database.findUser(action.getUsername());
         if (user.getSubscriptionType().equals("BASIC")) {
@@ -133,6 +172,14 @@ public final class RecommendationAction {
         return "SearchRecommendation result: " + showList;
     }
 
+    /**
+     * In primul rand am verificat daca abonamentul este de tip Basic si am afisat
+     * mesaj de eroare pentru ca aceasta recomandare nu poate fi aplicata unui utilizator
+     * care nu are cont premium. Am sortat in functie de cat de favorit este un videoclip
+     * in lista de favorite si dupa am afisat.
+     * @param action
+     * @return mesajul care spune daca recomandarea poate fi aplicata san nu.
+     */
     public static String favoriteRecommendation(final ActionInputData action) {
         User user = Database.findUser(action.getUsername());
         if (user.getSubscriptionType().equals("BASIC")) {

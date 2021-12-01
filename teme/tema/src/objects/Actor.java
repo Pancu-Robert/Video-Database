@@ -41,6 +41,11 @@ public final class Actor {
         return name;
     }
 
+    /**
+     * cauta in lista de filme/seriale in care a jucat un actor daca acel film/serial
+     * are rating.
+     * @return true daca show-ul are rating si false in caz contrar.
+     */
     public boolean hasRatings() {
         for (String title : getFilmography()) {
             Show show = Database.findShow(title);
@@ -51,6 +56,10 @@ public final class Actor {
         return false;
     }
 
+    /**
+     * calculeaza media unui show.
+     * @return media
+     */
     public double calculateAverage() {
         if (!hasRatings()) {
             return 0;

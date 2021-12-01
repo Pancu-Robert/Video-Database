@@ -39,6 +39,11 @@ public final class Database {
         return new ArrayList<>(userList);
     }
 
+    /**
+     * Creez un ArrayList pentru fiecare camp din clasa Database.
+     * Initializez fiecare ArrayList cu inputul specific dat ca parametru.
+     * @param input
+     */
     public static void initDatabase(final Input input) {
         actorList = new ArrayList<>();
         input.getActors().forEach(actorInputData -> actorList
@@ -57,6 +62,11 @@ public final class Database {
                 .add(new User(userInputData)));
     }
 
+    /**
+     * Creez un now ArrayList in care adaug toate filmele si serialele (in aceasta ordine)
+     * din baza de date
+     * @return ArrayList cu show-uri.
+     */
     public static ArrayList<Show> getShowList() {
         ArrayList<Show> showList = new ArrayList<>();
         showList.addAll(getMovieList());
@@ -65,6 +75,11 @@ public final class Database {
         return showList;
     }
 
+    /**
+     * Cauta actorul cu numele dat ca parametru din lista de actori din baza de date.
+     * @param name
+     * @return Daca se gaseste actorul se returneaza acel actor si null in caz contrar.
+     */
     public static Actor findActor(final String name) {
         for (Actor actor : getActorList()) {
             if (actor.getName().equals(name)) {
@@ -74,6 +89,11 @@ public final class Database {
         return null;
     }
 
+    /**
+     * Cauta filmul cu numele dat ca parametru din lista de filme din baza de date.
+     * @param name
+     * @return Daca se gaseste filmul se returneaza acel film si null in caz contrar.
+     */
     public static Movie findMovie(final String name) {
         for (Movie movie : getMovieList()) {
             if (movie.getTitle().equals(name)) {
@@ -83,6 +103,11 @@ public final class Database {
         return null;
     }
 
+    /**
+     * Cauta serialul cu numele dat ca parametru din lista de serialele din baza de date.
+     * @param name
+     * @return Daca se gaseste serialul se returneaza acel serial si null in caz contrar.
+     */
     public static Serial findSerial(final String name) {
         for (Serial serial : getSerialList()) {
             if (serial.getTitle().equals(name)) {
@@ -92,6 +117,11 @@ public final class Database {
         return null;
     }
 
+    /**
+     * Cauta utilizatorul cu numele dat ca parametru din lista de utilizatori din baza de date.
+     * @param name
+     * @return Daca se gaseste utilizatorul se returneaza acel utilizator si null in caz contrar.
+     */
     public static User findUser(final String name) {
         for (User user : getUserList()) {
             if (user.getUsername().equals(name)) {
@@ -101,6 +131,11 @@ public final class Database {
         return null;
     }
 
+    /**
+     * Cauta show-ul cu numele dat ca parametru din lista de show-uri din baza de date.
+     * @param name
+     * @return Daca se gaseste show-ul se returneaza acel show si null in caz contrar.
+     */
     public static Show findShow(final String name) {
         for (Show show : getShowList()) {
             if (show.getTitle().equals(name)) {
